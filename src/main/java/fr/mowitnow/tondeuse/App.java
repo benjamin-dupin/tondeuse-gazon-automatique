@@ -29,11 +29,11 @@ public class App {
             throw new TondeuseException(TondeuseExceptionEnum.FICHIER_ERREUR);
         }
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
-
-        TondeuseService tondeuseService = context.getBean(TondeuseService.class);
-
         try {
+
+            AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
+
+            TondeuseService tondeuseService = context.getBean(TondeuseService.class);
 
             tondeuseService.demarrer(args[0]);
 
