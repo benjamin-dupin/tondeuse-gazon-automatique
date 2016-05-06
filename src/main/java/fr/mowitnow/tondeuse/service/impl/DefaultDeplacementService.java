@@ -60,7 +60,7 @@ public class DefaultDeplacementService implements DeplacementService {
         int x = positionApresDeplacement.getX();
         int y = positionApresDeplacement.getY();
 
-        return ((x <= tondeuse.getPelouse().getLongueur()) && (y <= tondeuse.getPelouse().getLargeur()));
+        return (x <= tondeuse.getPelouse().getLongueur()) && (y <= tondeuse.getPelouse().getLargeur());
     }
 
     /**
@@ -73,7 +73,7 @@ public class DefaultDeplacementService implements DeplacementService {
      */
     private Position recupererNouvellePosition(Tondeuse tondeuse, InstructionEnum instruction) {
 
-        Position position = null;
+        Position position;
 
         switch (instruction) {
 
@@ -105,47 +105,16 @@ public class DefaultDeplacementService implements DeplacementService {
     private OrientationEnum recupererNouvelleOrientation(Tondeuse tondeuse, InstructionEnum instruction) {
 
         OrientationEnum actuelleOrientation = tondeuse.getPosition().getOrientation();
-        OrientationEnum nouvelleOrientation = null;
+        OrientationEnum nouvelleOrientation;
 
         switch (instruction) {
 
         case D:
-            switch (actuelleOrientation) {
-            case N:
-                nouvelleOrientation = OrientationEnum.E;
-                break;
-            case E:
-                nouvelleOrientation = OrientationEnum.S;
-                break;
-            case W:
-                nouvelleOrientation = OrientationEnum.N;
-                break;
-            case S:
-                nouvelleOrientation = OrientationEnum.W;
-                break;
-            default:
-                throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR);
-            }
+            nouvelleOrientation = recupererNouvelleOrientationInstructionDroite(actuelleOrientation);
             break;
 
         case G:
-            switch (actuelleOrientation) {
-            case N:
-                nouvelleOrientation = OrientationEnum.W;
-                break;
-            case E:
-                nouvelleOrientation = OrientationEnum.N;
-                break;
-            case W:
-                nouvelleOrientation = OrientationEnum.S;
-                break;
-            case S:
-                nouvelleOrientation = OrientationEnum.E;
-                break;
-            default:
-                throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR);
-            }
-
+            nouvelleOrientation = recupererNouvelleOrientationInstructionGauche(actuelleOrientation);
             break;
 
         case A:
@@ -155,6 +124,68 @@ public class DefaultDeplacementService implements DeplacementService {
         default:
             throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_INSTRUCTIONS_INCONNUE_ERREUR);
 
+        }
+
+        return nouvelleOrientation;
+    }
+
+    /**
+     * Lorsque l'instruction donnée à une tondeuse est {@link InstructionEnum#D}
+     * , renvoie sa nouvelle orientation
+     * 
+     * @param actuelleOrientation
+     * @return {@link OrientationEnum}
+     */
+    private OrientationEnum recupererNouvelleOrientationInstructionDroite(OrientationEnum actuelleOrientation) {
+
+        OrientationEnum nouvelleOrientation;
+
+        switch (actuelleOrientation) {
+        case N:
+            nouvelleOrientation = OrientationEnum.E;
+            break;
+        case E:
+            nouvelleOrientation = OrientationEnum.S;
+            break;
+        case W:
+            nouvelleOrientation = OrientationEnum.N;
+            break;
+        case S:
+            nouvelleOrientation = OrientationEnum.W;
+            break;
+        default:
+            throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR);
+        }
+
+        return nouvelleOrientation;
+    }
+
+    /**
+     * Lorsque l'instruction donnée à une tondeuse est {@link InstructionEnum#G}
+     * , renvoie sa nouvelle orientation
+     * 
+     * @param actuelleOrientation
+     * @return {@link OrientationEnum}
+     */
+    private OrientationEnum recupererNouvelleOrientationInstructionGauche(OrientationEnum actuelleOrientation) {
+
+        OrientationEnum nouvelleOrientation;
+
+        switch (actuelleOrientation) {
+        case N:
+            nouvelleOrientation = OrientationEnum.W;
+            break;
+        case E:
+            nouvelleOrientation = OrientationEnum.N;
+            break;
+        case W:
+            nouvelleOrientation = OrientationEnum.S;
+            break;
+        case S:
+            nouvelleOrientation = OrientationEnum.E;
+            break;
+        default:
+            throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR);
         }
 
         return nouvelleOrientation;

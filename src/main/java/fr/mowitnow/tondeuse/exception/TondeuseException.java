@@ -18,4 +18,10 @@ public class TondeuseException extends RuntimeException {
         log.error(tondeuseExceptionEnum.getMessage());
     }
 
+    public TondeuseException(TondeuseExceptionEnum tondeuseExceptionEnum, Exception e) {
+        this(tondeuseExceptionEnum);
+
+        log.error(e);
+    }
+
 }

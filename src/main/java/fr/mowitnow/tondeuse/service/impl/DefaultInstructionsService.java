@@ -54,7 +54,7 @@ public class DefaultInstructionsService implements InstructionsService {
 
         Pelouse pelouse = creerPelouse(entrees.get(0));
 
-        List<Tondeuse> tondeuses = new ArrayList<Tondeuse>();
+        List<Tondeuse> tondeuses = new ArrayList<>();
 
         // On avance de deux en deux à partir de la deuxième ligne
         for (int i = 1; i < entrees.size(); i += 2) {
@@ -98,7 +98,6 @@ public class DefaultInstructionsService implements InstructionsService {
         }
 
         // Vérifier que deux tondeuses ne sont pas positionné au même endroit
-        // FIXME : Est-ce nécessaire ?
         for (Tondeuse tondeuse : tondeuses) {
             if (tondeuse.getPosition().equals(position)) {
                 throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_PELOUSE_TONDEUSE_ERREUR);
@@ -148,7 +147,7 @@ public class DefaultInstructionsService implements InstructionsService {
             orientation = OrientationEnum.valueOf(position[2].toUpperCase());
 
         } catch (IllegalArgumentException e) {
-            throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR);
+            throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ORIENTATION_ERREUR, e);
         }
 
         return new Position(Integer.parseInt(position[0]), Integer.parseInt(position[1]), orientation);
@@ -165,7 +164,7 @@ public class DefaultInstructionsService implements InstructionsService {
 
         verifierCommande(commande, TondeuseExceptionEnum.INSTRUCTION_INSTRUCTIONS_ERREUR);
 
-        List<InstructionEnum> instructions = new ArrayList<InstructionEnum>();
+        List<InstructionEnum> instructions = new ArrayList<>();
 
         for (char c : commande.toCharArray()) {
 
@@ -176,7 +175,7 @@ public class DefaultInstructionsService implements InstructionsService {
                 instruction = InstructionEnum.valueOf(String.valueOf(c).toUpperCase());
 
             } catch (IllegalArgumentException e) {
-                throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_INSTRUCTIONS_INCONNUE_ERREUR);
+                throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_INSTRUCTIONS_INCONNUE_ERREUR, e);
             }
 
             instructions.add(instruction);
@@ -213,7 +212,7 @@ public class DefaultInstructionsService implements InstructionsService {
 
         if (commande == null || commande.length != longueurEsperee) {
 
-            throw new TondeuseException(TondeuseExceptionEnum.INSTRUCTION_POSITION_ERREUR);
+            throw new TondeuseException(tondeuseExceptionEnum);
         }
     }
 

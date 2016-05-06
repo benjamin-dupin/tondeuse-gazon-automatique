@@ -10,7 +10,6 @@ import org.apache.commons.io.IOUtils;
 
 import fr.mowitnow.tondeuse.exception.TondeuseException;
 import fr.mowitnow.tondeuse.exception.TondeuseExceptionEnum;
-import lombok.extern.apachecommons.CommonsLog;
 
 /**
  * Utiliraire pour les fichiers
@@ -18,7 +17,6 @@ import lombok.extern.apachecommons.CommonsLog;
  * @author Benjamin
  *
  */
-@CommonsLog
 public class FileUtils {
 
     private FileUtils() {
@@ -49,9 +47,7 @@ public class FileUtils {
 
         } catch (IOException e) {
 
-            log.error(e.getMessage());
-
-            throw new TondeuseException(TondeuseExceptionEnum.FICHIER_ERREUR);
+            throw new TondeuseException(TondeuseExceptionEnum.FICHIER_ERREUR, e);
 
         }
     }
@@ -70,9 +66,7 @@ public class FileUtils {
 
         } catch (IOException e) {
 
-            log.error(e.getMessage());
-
-            throw new TondeuseException(TondeuseExceptionEnum.FICHIER_ERREUR);
+            throw new TondeuseException(TondeuseExceptionEnum.FICHIER_ERREUR, e);
 
         }
     }

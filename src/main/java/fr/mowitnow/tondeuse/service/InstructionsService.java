@@ -10,6 +10,7 @@ import fr.mowitnow.tondeuse.model.Tondeuse;
  * @author Benjamin
  *
  */
+@FunctionalInterface
 public interface InstructionsService {
 
     /**
@@ -31,9 +32,9 @@ public interface InstructionsService {
      * d'explorer la pelouse. Les instructions sont une suite de caractères sans
      * espaces.
      * 
-     * @param entrées
+     * @param entrees
      * @return {@link List} de {@link Tondeuse}
      */
-    List<Tondeuse> creerTondeuses(List<String> entrées);
+    List<Tondeuse> creerTondeuses(List<String> entrees);
 
 }

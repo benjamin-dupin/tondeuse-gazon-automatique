@@ -9,6 +9,7 @@ import fr.mowitnow.tondeuse.model.Tondeuse;
  * @author Benjamin
  *
  */
+@FunctionalInterface
 public interface DeplacementService {
 
     /**

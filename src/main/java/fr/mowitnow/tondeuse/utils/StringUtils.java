@@ -20,7 +20,7 @@ public class StringUtils {
      */
     public static boolean isNullOrEmpty(String s) {
 
-        return ((s == null) || org.apache.commons.lang.StringUtils.isEmpty(s));
+        return (s == null) || org.apache.commons.lang.StringUtils.isEmpty(s);
     }
 
 }
